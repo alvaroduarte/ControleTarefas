@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Controle de Tarefas App</title>
+
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+	crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+
+	<!--<nav class="navbar navbar-dark bg-dark">
+		<a class="navbar-brand" href="#"> <img
+			src="/docs/4.1/assets/brand/bootstrap-solid.svg" width="30"
+			height="30" class="d-inline-block align-top" alt=""> Lista de Tarefas
+		</a>
+	</nav>--->
+
+	<nav class="navbar navbar-light bg-light">
+		<a class="navbar-brand">Lista de Tarefas</a>
+		
+			
+		<a href="/cadastrarTarefa" class="btn btn-sm btn-outline-secondary">Cadastrar Tarefa</a>
+		
+	</nav>
+
+	<!--  <h3>
+		<a class="btn btn-primary btn-lg" role="button"
+			href="/cadastrarTarefa">Cadastrar Tarefa</a>
+	</h3>-->
+
+
+	<table class="table container">
+
+		<thead>
+			<tr>
+				<th scope="col">Nome</th>
+				<th scope="col">Detalhe</th>
+				<th scope="col">Data Inicio</th>
+				<th scope="col">Data Fim</th>
+				<th scope="col">Deletar</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr th:each="tarefa : ${tarefas}">
+				<td><a
+					th:href="${(#mvc.url('TC#detalhesTarefa').arg(0, tarefa.codigo)).build()}"><span
+						th:text="${tarefa.nome}"></a></td>
+				<td><span th:text="${tarefa.detalhe}"></td>
+				<td><span th:text="${tarefa.dataInicio}"></td>
+				<td><span th:text="${tarefa.dataFim}"></td>
+				<td><a
+					th:href="${(#mvc.url('TC#deletarTarefa').arg(0, tarefa.codigo)).build()}"><button class="btn btn-default">
+							Deletar </button></a></td>
+			</tr>
+		</tbody>
+
+	</table>
+
+</body>
+</html>

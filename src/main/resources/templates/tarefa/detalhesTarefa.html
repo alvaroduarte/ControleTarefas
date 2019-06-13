@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="ISO-8859-1">
+<title>Detalhes da Tarefa</title>
+
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+	crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+
+	<nav class="navbar navbar-light bg-light">
+		<a class="navbar-brand">Tarefa</a> <a href="/tarefas"
+			class="btn btn-sm btn-outline-secondary">Lista de Tarefas</a>
+
+	</nav>
+
+	<!--  <div th:each="tarefa : ${tarefa}" class="container">
+
+		<div class="row">
+			<div class="col-sm">
+				Nome: <span th:text="${tarefa.nome}">
+			</div>
+			<div class="col-sm">
+				Detalhe: <span th:text="${tarefa.detalhe}"></span>
+			</div>
+			<div class="col-sm">
+				Data Inicio: <span th:text="${tarefa.dataInicio}"></span>
+			</div>
+			<div class="col-sm">
+				Data Fim: <span th:text="${tarefa.dataFim}"></span>
+			</div>
+		</div>
+
+	</div>-->
+
+
+
+	<div th:each="tarefa : ${tarefa}" class="container">
+
+		<div class="row">
+			<div class="col-sm">
+				Nome: <span th:text="${tarefa.nome}">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm">
+				Detalhe: <span th:text="${tarefa.detalhe}">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm">
+				Data Inicio: <span th:text="${tarefa.dataInicio}">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm">
+				Data Fim: <span th:text="${tarefa.dataFim}">
+			</div>
+		</div>
+
+	</div>
+
+
+	<!--  <table th:each="tarefa : ${tarefa}" class="table container">
+
+		<tbody>
+			<tr>
+
+				<td>Nome : <span th:text="${tarefa.nome}"></td>
+			</tr>
+			<tr>
+				<td>Detalhe : <span th:text="${tarefa.detalhe}"></td>
+			</tr>
+			<tr>
+				<td>Data Inicio : <span th:text="${tarefa.dataInicio}"></td>
+			</tr>
+			<tr>
+				<td>Data Fim :<span th:text="${tarefa.dataFim}"></td>
+			</tr>
+
+		</tbody>
+
+	</table>
+	
+	<div class="alert alert-success alert-dimissible" role="alert" th:if="${not #strings.isEmpty(mensagem)}">
+		<span th:text="${mensagem}"></span>
+	</div>
+
+	
+	<form method="post">
+		Nome:<input type="text" value="" name="nome">
+		RG:<input type="text" value="" name="rg">
+		<button class="btn btn-sm btn-outline-secondary" type="submit">Adicionar Desenvolvedor</button>
+	</form>-->
+
+	<nav class="navbar navbar-light bg-light">
+		<a class="navbar-brand">Desenvolvedores da Tarefa</a>
+
+	</nav>
+
+
+	<!--  <div class="alert alert-danger" role="alert" th:if="${not #strings.isEmpty(mensagem)}">
+		<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+		<span class="sr-only">Error:</span> <span th:text="${mensagem}"></span>
+	</div>-->
+
+
+	<form method="post" th:object="${desenvolvedor}">
+		<table class="table container">
+
+			<tbody>
+
+				<tr class="alert alert-danger" role="alert"
+					th:if="${not #strings.isEmpty(mensagem)}">
+					<td colspan="3"><span
+						class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						<span class="sr-only">Error:</span> <span th:text="${mensagem}"></span></td>
+
+				</tr>
+
+				<tr>
+					<td>Nome:<input type="text" value="" name="nome"></td>
+					<td>RG:<input type="text" value="" name="rg"></td>
+					<td><button class="btn btn-sm btn-outline-secondary"
+							type="submit">Adicionar Desenvolvedor</button></td>
+				</tr>
+			</tbody>
+
+		</table>
+	</form>
+
+	<table class="table container">
+
+		<thead>
+			<tr>
+				<th scope="col">Nome</th>
+				<th scope="col">Rg</th>
+				<th scope="col">Deletar</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr th:each="desenvolvedor : ${desenvolvedores}">
+
+				<td><span th:text="${desenvolvedor.nome}"></td>
+				<td><span th:text="${desenvolvedor.rg}"></td>
+				<td><a
+					th:href="${(#mvc.url('TC#deletarDesenvolvedor').arg(0, desenvolvedor.codigo)).build()}"> 
+						<button class="btn btn-default">
+							Deletar </button>
+					</a>
+				</td>
+			</tr>
+		</tbody>
+
+	</table>
+
+
+
+
+
+	<!--<div class="container" th:each="desenvolvedor : ${desenvolvedores}">
+
+		<div class="row">
+			<div class="inout-field col s6">
+				<p>
+					<span th:text="${desenvolvedor.nome}"></span>
+				<p>
+			</div>
+			<div class="inout-field col s3">
+				<p>
+					<span th:text="${desenvolvedor.rg}"></span>
+				<p>
+			</div>
+			<div class="inout-field col s3">
+				<p>
+					<a th:href="${(#mvc.url('TC#deletarDesenvolvedor').arg(0, desenvolvedor.codigo)).build()}">Deletar</a>
+				<p>
+			</div>
+		</div>
+	</div>-->
+
+</body>
+
+</html>
